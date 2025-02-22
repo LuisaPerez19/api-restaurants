@@ -7,3 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+#
+["Italian", "Chinese", "Vietnamese", "Japanese", "Korean", "Spanish", "French", "Mexican", "Indian"].each do |category|
+  Category.find_or_create_by!(name: category)
+  end
