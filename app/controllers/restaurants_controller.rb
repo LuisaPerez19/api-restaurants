@@ -1,14 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
   def index
-    # category = Category.find_by(name: params[:category])
-    # if category
-    #   restaurants = category.restaurants.select(:id, :name, :address)
-    #   render json: restaurants
-    # else
-    #   render json: { error: "Category not found" }, status: :not_found
-    # end
-
     @restaurants = Restaurant.all
   end
 
