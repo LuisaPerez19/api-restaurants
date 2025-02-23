@@ -1,22 +1,31 @@
-<div class="container">
-  <h1>Categories</h1>
+<div class="container box" data-controller="restaurant-list">
+  <h1>Find My Restaurant</h1>
+  <br>
+  <h3>What would you like to eat? </h3>
   <br>
   <div class="row justify-content-left align-items-baseline">
     <div class="col-3">
       <div class ="card rounded p-4">
 
-        <%= form_with url: "/search", method: :get, id:"searchForm" do |form| %>
+        <%= form_with url: "/search", method: :get, id:"searchForm", data: {
+          action: "submit->restaurant-list#showRestaurantList",
+          "restaurant-list-target": "searchForm" } do |form| %>
         <p class="mb-1 fw-bold">👩‍🍳 Cuisine</p>
           <% @categories.each_with_index do |category, index| %>
             <div class="form-check mb-1">
-              <%= form.radio_button :category, category.name, id: "category#{index + 1}", class: "form-check-input"%>
+              <%= form.radio_button :category, category.name.downcase,
+              class: "form-check-input",
+              id: "category#{index + 1}",
+              checked: ("italian" == category.name.downcase),
+              "data-restaurant-list-target" =>"selectedCategory"%>
               <%= form.label "category#{index + 1}", category.name, class: "form-check-label" %>
             </div>
           <% end %>
 
           <div class="my-4">
             <%= form.label :location, "📍 Location (optional!)", class: "form-label mb-1 fw-bold" %>
-            <%= form.text_field :location, class: "form-control", placeholder: "Roma" %>
+            <%= form.text_field :location, class: "form-control", placeholder: "Lisbon",
+            "data-restaurant-list-target" => "location" %>
           </div>
 
         <%= form.submit "Search", class: "btn btn-primary mt-3", id: "submitBtn" %>
@@ -24,5 +33,13 @@
 
       </div>
     </div>
+
+    <div class="col-6">
+      <h4>Restaurant list</h4>
+      <ul class="list-group list-group-flush" id="restaurant-list" data-restaurant-list-target = "restaurantList">
+      <li class="list-group-item"> </li>
+</ul>
+    </div>
+
   </div>
 </div>
